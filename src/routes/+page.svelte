@@ -108,7 +108,7 @@
 
     // Fonction pour ajouter un nouvel élément principal avec la date et la société
     function addExperiences() {
-        if (experience.trim() !== "" && companyName.trim() !== "" && date !== "") {
+        if (experience.trim() !== "" && date !== "") {
             // Ajoute un élément avec la date, le nom de la société et une liste vide de sous-éléments
             eLements = [...eLements, { name: experience.trim(), company: companyName.trim(), date: date, responsabilités: [] }];
             experience = ""; // Réinitialise les champs après ajout
@@ -129,11 +129,27 @@
             responsabilité = ""; // Réinitialise le champ après ajout
         }
     }
+
+    let diplome = ""; // Contient la valeur de l'élément principal
+    let instituteName = ""; // Contient la valeur du nom de la société
+    let school_year = ""; // Contient la date sélectionnée
+    let diplome_elements = []; // Liste des éléments principaux et leurs sous-éléments
+
+    // Fonction pour ajouter un nouvel élément principal avec la date et la société
+    function addDiplome() {
+        if (diplome.trim() !== "" && instituteName.trim() !=="" && school_year !== "") {
+            // Ajoute un élément avec la date, le nom de la société et une liste vide de sous-éléments
+            diplome_elements = [...diplome_elements, { name: diplome.trim(), institute: instituteName.trim(), date: school_year}];
+            diplome = "";
+            instituteName = "";
+            school_year = "";
+        }
+    }
 </script>
 
 <div class="content">
     <div class="navlat">
-        <h1>Create your own CV</h1>
+        <h1>Créer ton propre CV</h1>
         <div class="info">
             <h3>En-tête</h3>
             <label for="">Votre nom :
@@ -181,22 +197,18 @@
 
             <h5>Compétences :</h5>
             <i>Nb: les qualités sont séparés par une virgule</i>
-            <!-- Input pour ajouter des éléments principaux -->
             <input type="text" bind:value={competences} placeholder="Ajouter votre compétence">
             <button on:click={addCompetences}>Ajouter</button>
 
-            <!-- Input pour ajouter des sous-éléments au dernier élément principal ajouté -->
             <input type="text" bind:value={sous_element} placeholder="Ajouter le contenu du compétence au-dessus">
             <button on:click={addSousElement}>Ajouter Sous-élément</button>
 
             <hr>
 
             <h5>Langues :</h5>
-            <!-- Input pour ajouter des éléments principaux -->
             <input type="text" bind:value={langues} placeholder="Ajouter la langue">
             <button on:click={addLanguages}>Ajouter</button>
 
-            <!-- Input pour ajouter des sous-éléments au dernier élément principal ajouté -->
             <input type="text" bind:value={niveau} placeholder="Ajouter votre niveau de la langue saisie au-dessus">
             <button on:click={addNiveau}>Ajouter niveau</button>
 
@@ -208,21 +220,27 @@
             <hr>
 
             <h5>Expériences :</h5>
-            <!-- Input pour ajouter des éléments principaux -->
             <input type="text" bind:value={experience} placeholder="Ajouter l'expérience">
             <input type="text" bind:value={date} placeholder="Ajouter la date pour l'expérience">
             <input type="text" bind:value={companyName} placeholder="Ajouter le nom de l'entreprise">
             <button on:click={addExperiences}>Ajouter</button>
             
-            <!-- Input pour ajouter des sous-éléments au dernier élément principal ajouté -->
             <input type="text" bind:value={responsabilité} placeholder="Ajouter votre résposabilité pour l'expérience saisie au-dessus">
             <button on:click={addResponsabilité}>Ajouter résponsabilité</button>
 
             <hr>
 
+            <h5>Diplômes :</h5>
+            <input type="text" bind:value={diplome} placeholder="Ajouter le nom dilpôme">
+            <input type="text" bind:value={school_year} placeholder="Ajouter la date de son obtention">
+            <input type="text" bind:value={instituteName} placeholder="Ajouter le nom de l'etablissement">
+            <button on:click={addDiplome}>Ajouter</button>
+
+            <hr>
+
         </div>
 
-        <button on:click={generatePDF}>Exportez PDF</button>
+        <button id="export" on:click={generatePDF}>Exportez PDF</button>
     </div>
 
     <div class="body">
@@ -311,14 +329,17 @@
                         <h3 class="title">EXPERIENCES</h3>
                         
                         <ul>
+                            {#each eLements as eLement}
                             <li>
                                 <div class="exp">
-                                    {#each eLements as eLement}
                                         <div class="exp-head">
                                             <div class="">
                                                 <p><b>{eLement.name}</b>
-                                                    <br>
-                                                    <i class="comp">({eLement.company})</i></p>
+                                                    {#if eLement.company}                                                        
+                                                        <br>
+                                                        <i class="comp">({eLement.company})</i>
+                                                    {/if}
+                                                </p>
                                             </div>
                                             <div class="date">
                                                 <p>{eLement.date}</p>
@@ -332,9 +353,9 @@
                                                 </ul>
                                             {/each}
                                         {/if}
-                                    {/each}
                                 </div>
                             </li>
+                            {/each}
                         </ul>
                     </div>
 
@@ -342,42 +363,22 @@
                         <h3 class="title">FORMATIONS ET DIPLÔMES</h3>
                         
                         <ul>
-                            <li>
-                                <div class="exp-head">
-                                    <div class="">
-                                        <p><b>Licence en Télécommunication-Informatique-Electronique</b>
-                                            <br>
-                                            <i class="comp">(Is IESI Ambatomainty)</i></p>
+                            {#each diplome_elements as element}
+                                <li>
+                                    <div class="exp-head">
+                                        <div class="">
+                                            <p><b>{element.name}</b>
+                                                <br>
+                                                {#if element.institute}
+                                                <i class="comp">({element.institute})</i>
+                                                {/if}</p>
+                                        </div>
+                                        <div class="date">
+                                            <p>{element.date}</p>
+                                        </div>
                                     </div>
-                                    <div class="date">
-                                        <p>Aôut 2024</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="exp-head">
-                                    <div class="">
-                                        <p><b>Diplôme de Technicien Supérieur en Audio visuel</b>
-                                            <br>
-                                            <i class="comp">(Is IESI Ambatomainty)</i></p>
-                                    </div>
-                                    <div class="date">
-                                        <p>2023</p>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="exp-head">
-                                    <div class="">
-                                        <p><b>Baccalaureat</b>
-                                            <br>
-                                            <i class="comp">(Lycée Privée Archange Tsiadana)</i></p>
-                                    </div>
-                                    <div class="date">
-                                        <p>2021</p>
-                                    </div>
-                                </div>
-                            </li>
+                                </li>
+                            {/each}
                         </ul>
                     </div>
 
@@ -506,7 +507,7 @@
     }
 
     p, li{
-        font-size: 11px;
+        font-size: 10px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
         line-height: 20px;
     }
@@ -552,6 +553,17 @@
 
     .info i{
         font-size: 12px;
+    }
+
+    #export{
+        width: 100%;
+        height: 30px;
+        cursor: pointer;
+        border: none;
+    }
+
+    #export:hover{
+        background-color: aquamarine;
     }
 
 </style>
