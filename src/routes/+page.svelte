@@ -418,6 +418,8 @@
 
     .void{
         background-color: white;
+        width: 794px;
+        height: 1123px;
     }
 
     h3{
