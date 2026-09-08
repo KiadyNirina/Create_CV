@@ -1,5 +1,6 @@
 <!-- src/lib/components/Header.svelte -->
 <script>
+    import InstallPWA from "./InstallPWA.svelte";
     export let currentPath = '/';
 </script>
 
@@ -41,4 +42,5 @@
             </a>
         </nav>
     </div>
+    <InstallPWA />
 </header>
