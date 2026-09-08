@@ -18,6 +18,7 @@
 
         <!-- Liens de navigation -->
         <nav class="flex items-center gap-3 sm:gap-6">
+            <InstallPWA />
             <!-- <a 
                 href="/" 
                 class={`text-xs font-bold uppercase tracking-wider transition-colors ${
@@ -42,5 +43,4 @@
             </a>
         </nav>
     </div>
-    <InstallPWA />
 </header>
