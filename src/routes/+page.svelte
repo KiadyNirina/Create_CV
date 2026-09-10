@@ -481,10 +481,30 @@
     </main>
 
     <!-- Footer -->
-    <footer class="max-w-6xl mx-auto w-full px-4 py-8 border-t-2 border-neutral-200 text-center">
-        <p class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-            © {currentYear} CVita — Tous droits réservés.
-        </p>
+    <footer class="max-w-6xl mx-auto w-full px-4 py-8 border-t-2 border-neutral-200">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center sm:items-start gap-1">
+                <p class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
+                    © {currentYear} CVita — Tous droits réservés.
+                </p>
+                <p class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
+                    Développé par
+                    <a
+                        href="https://kleonix.netlify.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-black hover:underline underline-offset-2"
+                    >
+                        Kleonix
+                    </a>
+                </p>
+            </div>
+            <nav class="flex items-center gap-4">
+                <a href="/terms" class="text-xs font-bold text-neutral-500 uppercase tracking-wider hover:text-black transition-colors">
+                    Conditions
+                </a>
+            </nav>
+        </div>
     </footer>
 </div>
 
