@@ -4,6 +4,7 @@
     import { page } from '$app/stores';
     import Icon from '@iconify/svelte';
     import MobileInstallSection from '$lib/components/MobileInstallSection.svelte';
+    import CreateCVButton from '$lib/components/CreateCVButton.svelte';
 
     const siteUrl = $page.url.origin;
 
@@ -180,15 +181,7 @@
                     </p>
 
                     <div class="mt-10 flex flex-col sm:flex-row gap-4">
-                        <a 
-                            href="/builder" 
-                            class="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 bg-black text-white text-xs font-black uppercase tracking-wider rounded-xl hover:bg-neutral-800 transition-all duration-300 shadow-md hover:shadow-2xl hover:-translate-y-1"
-                        >
-                            Créer mon CV
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                            </svg>
-                        </a>
+                        <CreateCVButton variant="primary" label="Créer mon CV" />
                         
                         <a 
                             href="#features" 
@@ -480,24 +473,38 @@
                 <p class="text-xs sm:text-sm font-semibold text-neutral-400 max-w-lg mx-auto mb-8 uppercase tracking-wider relative z-10">
                     Créez votre CV au rendu professionnel sans perdre de temps sur la mise en page.
                 </p>
-                <a 
-                    href="/builder" 
-                    class="relative z-10 inline-flex items-center gap-3 px-8 py-4 bg-white text-black text-xs font-black uppercase tracking-wider rounded-xl hover:bg-neutral-200 transition-all cursor-pointer shadow-lg hover:scale-105"
-                >
-                    Lancer l'Éditeur
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
-                </a>
+                <div class="relative z-10">
+                    <CreateCVButton variant="white" label="Lancer l'Éditeur" />
+                </div>
             </div>
         </section>
     </main>
 
     <!-- Footer -->
-    <footer class="max-w-6xl mx-auto w-full px-4 py-8 border-t-2 border-neutral-200 text-center">
-        <p class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
-            © {currentYear} CVita — Tous droits réservés.
-        </p>
+    <footer class="max-w-6xl mx-auto w-full px-4 py-8 border-t-2 border-neutral-200">
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex flex-col items-center sm:items-start gap-1">
+                <p class="text-xs font-bold text-neutral-500 uppercase tracking-wider">
+                    © {currentYear} CVita — Tous droits réservés.
+                </p>
+                <p class="text-[10px] font-bold text-neutral-400 uppercase tracking-wider">
+                    Développé par
+                    <a
+                        href="https://kleonix.netlify.app"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-black hover:underline underline-offset-2"
+                    >
+                        Kleonix
+                    </a>
+                </p>
+            </div>
+            <nav class="flex items-center gap-4">
+                <a href="/terms" class="text-xs font-bold text-neutral-500 uppercase tracking-wider hover:text-black transition-colors">
+                    Conditions
+                </a>
+            </nav>
+        </div>
     </footer>
 </div>
 

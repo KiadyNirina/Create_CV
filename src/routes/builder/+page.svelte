@@ -17,6 +17,7 @@
     const siteUrl = $page.url.origin;
 
     let activeTab = 'templates';
+    let headerExpanded = true;
 </script>
 
 <svelte:head>
@@ -57,93 +58,129 @@
 <div class="min-h-screen bg-neutral-100/60 py-8 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <!-- ========================================= -->
-        <!-- EN-TÊTE FIXE (sticky)                     -->
+        <!-- EN-TÊTE FIXE (sticky) + PLIABLE MOBILE    -->
         <!-- ========================================= -->
         <div class="sticky top-0 z-10 bg-neutral-100/60 backdrop-blur-sm -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 pt-4 pb-2">
-            <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 border-b-2 border-neutral-200 pb-4">
-                <!-- Gauche : bouton retour + titre -->
-                <div class="flex items-center gap-3">
-                    <a href="/" class="p-2 rounded-full hover:bg-neutral-200 transition-colors" aria-label="Retour à l'accueil">
-                        <Icon icon="mdi:arrow-left" class="w-6 h-6 text-neutral-700" />
-                    </a>
-                    <div>
-                        <h1 class="text-3xl font-black text-black tracking-tight uppercase">
-                            Créateur de CV Professionnel
+            <header class="border-b-2 border-neutral-200 pb-4">
+                <!-- Ligne 1 : Titre + bouton toggle (mobile uniquement) -->
+                <div class="flex items-center justify-between gap-3 md:hidden">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <a href="/" class="p-2 rounded-full hover:bg-neutral-200 transition-colors shrink-0" aria-label="Retour à l'accueil">
+                            <Icon icon="mdi:arrow-left" class="w-6 h-6 text-neutral-700" />
+                        </a>
+                        <h1 class="text-base font-black text-black tracking-tight uppercase truncate">
+                            Créateur de CV
                         </h1>
-                        <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-1">
-                            Créez, optimisez et exportez votre CV au format ATS-friendly
-                        </p>
                     </div>
+
+                    <!-- Bouton plier/déplier -->
+                    <button
+                        type="button"
+                        on:click={() => headerExpanded = !headerExpanded}
+                        class="p-2 rounded-full hover:bg-neutral-200 transition-colors shrink-0"
+                        aria-label={headerExpanded ? 'Replier l\'en-tête' : 'Déplier l\'en-tête'}
+                        aria-expanded={headerExpanded}
+                    >
+                        <Icon 
+                            icon="mdi:chevron-down" 
+                            class={`w-6 h-6 text-neutral-700 transition-transform duration-300 ${headerExpanded ? 'rotate-180' : ''}`} 
+                        />
+                    </button>
                 </div>
-                <!-- Droite : boutons d'export -->
-                <div class="hidden lg:block">
-                    {#if activeTab === 'edit' || activeTab === 'preview'}
-                        <ExportButtons />
-                    {/if}
+
+                <!-- Contenu extensible (visible sur md+ ou quand déplié sur mobile) -->
+                <div class={`${headerExpanded ? 'block' : 'hidden'} md:block md:mt-0 mt-3`}>
+                    <!-- Ligne desktop : bouton retour + titre complet + boutons d'export -->
+                    <div class="hidden md:flex md:items-center md:justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <a href="/" class="p-2 rounded-full hover:bg-neutral-200 transition-colors" aria-label="Retour à l'accueil">
+                                <Icon icon="mdi:arrow-left" class="w-6 h-6 text-neutral-700" />
+                            </a>
+                            <div>
+                                <h1 class="text-3xl font-black text-black tracking-tight uppercase">
+                                    Créateur de CV Professionnel
+                                </h1>
+                                <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-1">
+                                    Créez, optimisez et exportez votre CV au format ATS-friendly
+                                </p>
+                            </div>
+                        </div>
+                        <div class="hidden lg:block">
+                            {#if activeTab === 'edit' || activeTab === 'preview'}
+                                <ExportButtons />
+                            {/if}
+                        </div>
+                    </div>
+
+                    <!-- Sous-titre mobile (visible uniquement quand déplié sur mobile) -->
+                    <p class="md:hidden text-[10px] font-semibold text-neutral-500 uppercase tracking-wider mt-1">
+                        Créez, optimisez et exportez votre CV au format ATS-friendly
+                    </p>
+
+                    <!-- Navigation onglets -->
+                    <nav class="flex gap-1.5 sm:gap-3 border-b-2 border-neutral-200 pb-px mt-3 md:mt-2 overflow-x-auto">
+                        <!-- Onglet Modèles -->
+                        <button
+                            type="button"
+                            class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer whitespace-nowrap ${
+                                activeTab === 'templates'
+                                    ? 'bg-black text-white'
+                                    : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
+                            }`}
+                            on:click={() => activeTab = 'templates'}
+                        >
+                            <Icon icon="mdi:view-grid" class="w-4 h-4" />
+                            <span class="hidden sm:inline" class:inline={activeTab === 'templates'}>Modèles</span>
+                        </button>
+
+                        <!-- Onglet Éditeur -->
+                        <button 
+                            type="button"
+                            class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer whitespace-nowrap ${
+                                activeTab === 'edit' 
+                                    ? 'bg-black text-white' 
+                                    : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
+                            }`}
+                            on:click={() => activeTab = 'edit'}
+                        >
+                            <Icon icon="mdi:pencil" class="w-4 h-4" />
+                            <span class="hidden sm:inline" class:inline={activeTab === 'edit'}>Éditeur</span>
+                        </button>
+
+                        <!-- Onglet Aperçu A4 -->
+                        {#if activeTab !== 'templates'}
+                            <button 
+                                type="button"
+                                class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer whitespace-nowrap ${
+                                    activeTab === 'preview' 
+                                        ? 'bg-black text-white' 
+                                        : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
+                                }`}
+                                on:click={() => activeTab = 'preview'}
+                            >
+                                <Icon icon="mdi:eye" class="w-4 h-4" />
+                                <span class="hidden sm:inline" class:inline={activeTab === 'preview'}>Aperçu A4</span>
+                            </button>
+                        {/if}
+
+                        <!-- Onglet Analyse ATS -->
+                        {#if activeTab !== 'templates'}
+                            <button 
+                                type="button"
+                                class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer whitespace-nowrap ${
+                                    activeTab === 'ats' 
+                                        ? 'bg-black text-white' 
+                                        : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
+                                }`}
+                                on:click={() => activeTab = 'ats'}
+                            >
+                                <Icon icon="mdi:check-circle" class="w-4 h-4" />
+                                <span class="hidden sm:inline" class:inline={activeTab === 'ats'}>Analyse ATS</span>
+                            </button>
+                        {/if}
+                    </nav>
                 </div>
             </header>
-
-            <nav class="md:flex gap-3 border-b-2 border-neutral-200 pb-px mt-2">
-                <!-- Onglet Modèles (toujours visible) -->
-                <button
-                    type="button"
-                    class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer ${
-                        activeTab === 'templates'
-                            ? 'bg-black text-white'
-                            : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
-                    }`}
-                    on:click={() => activeTab = 'templates'}
-                >
-                    <Icon icon="mdi:view-grid" class="w-4 h-4" />
-                    <span class="hidden sm:inline" class:inline={activeTab === 'templates'}>Modèles</span>
-                </button>
-
-                <!-- Onglet Éditeur (toujours visible) -->
-                <button 
-                    type="button"
-                    class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer ${
-                        activeTab === 'edit' 
-                            ? 'bg-black text-white' 
-                            : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
-                    }`}
-                    on:click={() => activeTab = 'edit'}
-                >
-                    <Icon icon="mdi:pencil" class="w-4 h-4" />
-                    <span class="hidden sm:inline" class:inline={activeTab === 'edit'}>Éditeur</span>
-                </button>
-
-                <!-- Onglet Aperçu A4 (affiché seulement si on n'est pas sur l'onglet Modèles) -->
-                {#if activeTab !== 'templates'}
-                    <button 
-                        type="button"
-                        class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer ${
-                            activeTab === 'preview' 
-                                ? 'bg-black text-white' 
-                                : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
-                        }`}
-                        on:click={() => activeTab = 'preview'}
-                    >
-                        <Icon icon="mdi:eye" class="w-4 h-4" />
-                        <span class="hidden sm:inline" class:inline={activeTab === 'preview'}>Aperçu A4</span>
-                    </button>
-                {/if}
-
-                <!-- Onglet Analyse ATS (affiché seulement si on n'est pas sur l'onglet Modèles) -->
-                {#if activeTab !== 'templates'}
-                    <button 
-                        type="button"
-                        class={`inline-flex items-center gap-2 px-2 py-1.5 text-[10px] sm:px-5 sm:py-3 sm:text-xs font-black uppercase tracking-wider transition-all rounded-t-xl cursor-pointer ${
-                            activeTab === 'ats' 
-                                ? 'bg-black text-white' 
-                                : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
-                        }`}
-                        on:click={() => activeTab = 'ats'}
-                    >
-                        <Icon icon="mdi:check-circle" class="w-4 h-4" />
-                        <span class="hidden sm:inline" class:inline={activeTab === 'ats'}>Analyse ATS</span>
-                    </button>
-                {/if}
-            </nav>
         </div>
 
         <!-- ========================================= -->
@@ -222,8 +259,8 @@
                 <!-- ONGLET MODÈLES -->
                 <div class="mx-auto max-w-5xl rounded-2xl border-2 border-neutral-200 bg-white p-6 sm:p-10 shadow-sm">
                     <div class="mb-6 text-center">
-                        <h2 class="text-2xl font-black text-black uppercase tracking-tight">Choisissez votre modèle</h2>
-                        <p class="mt-2 text-sm font-medium text-neutral-500">
+                        <h2 class="text-xl md:text-2xl font-black text-black uppercase tracking-tight">Choisissez votre modèle</h2>
+                        <p class="mt-2 text-xs md:text-sm font-medium text-neutral-500">
                             Sélectionnez la mise en page qui correspond le mieux à votre profil
                         </p>
                     </div>

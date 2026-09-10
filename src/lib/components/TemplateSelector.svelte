@@ -51,7 +51,7 @@
 
 <div class="mb-6 relative">
     <h3 class="text-xs font-bold text-neutral-500 uppercase tracking-wider mb-3">Modèles de CV</h3>
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+    <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-3">
         {#each templates as template}
             <button
                 type="button"
