@@ -222,8 +222,8 @@
                 <!-- ONGLET MODÈLES -->
                 <div class="mx-auto max-w-5xl rounded-2xl border-2 border-neutral-200 bg-white p-6 sm:p-10 shadow-sm">
                     <div class="mb-6 text-center">
-                        <h2 class="text-2xl font-black text-black uppercase tracking-tight">Choisissez votre modèle</h2>
-                        <p class="mt-2 text-sm font-medium text-neutral-500">
+                        <h2 class="text-xl md:text-2xl font-black text-black uppercase tracking-tight">Choisissez votre modèle</h2>
+                        <p class="mt-2 text-xs md:text-sm font-medium text-neutral-500">
                             Sélectionnez la mise en page qui correspond le mieux à votre profil
                         </p>
                     </div>
