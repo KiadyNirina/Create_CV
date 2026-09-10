@@ -67,10 +67,10 @@
                         <Icon icon="mdi:arrow-left" class="w-6 h-6 text-neutral-700" />
                     </a>
                     <div>
-                        <h1 class="text-3xl font-black text-black tracking-tight uppercase">
+                        <h1 class="text-xl md:text-3xl font-black text-black tracking-tight uppercase">
                             Créateur de CV Professionnel
                         </h1>
-                        <p class="text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-1">
+                        <p class="text-[10px] md:text-xs font-semibold text-neutral-500 uppercase tracking-wider mt-1">
                             Créez, optimisez et exportez votre CV au format ATS-friendly
                         </p>
                     </div>
