@@ -192,36 +192,14 @@
                     </div>
                 </div>
 
-                <!-- Colonne droite : mockup CV -->
-                <div class="hidden md:block">
-                    <div class="bg-white rounded-2xl shadow-2xl border border-neutral-200 p-8 transform rotate-1 hover:rotate-0 transition-transform duration-300">
-                        <!-- En-tête du CV simulé -->
-                        <div class="flex items-center gap-4 mb-6">
-                            <div class="w-12 h-12 bg-neutral-200 rounded-full"></div>
-                            <div>
-                                <div class="h-3 w-32 bg-neutral-800 rounded mb-2"></div>
-                                <div class="h-2 w-24 bg-neutral-300 rounded"></div>
-                            </div>
-                        </div>
-                        <!-- Séparateur -->
-                        <div class="border-t border-neutral-100 my-4"></div>
-                        <!-- Sections simulées -->
-                        <div class="space-y-4">
-                            <div>
-                                <div class="h-2 w-20 bg-neutral-800 rounded mb-2"></div>
-                                <div class="h-2 w-full bg-neutral-200 rounded"></div>
-                                <div class="h-2 w-3/4 bg-neutral-200 rounded mt-1"></div>
-                            </div>
-                            <div>
-                                <div class="h-2 w-24 bg-neutral-800 rounded mb-2"></div>
-                                <div class="h-2 w-full bg-neutral-200 rounded"></div>
-                                <div class="h-2 w-5/6 bg-neutral-200 rounded mt-1"></div>
-                            </div>
-                            <div>
-                                <div class="h-2 w-16 bg-neutral-800 rounded mb-2"></div>
-                                <div class="h-2 w-2/3 bg-neutral-200 rounded"></div>
-                            </div>
-                        </div>
+                <!-- Colonne droite : aperçu CV -->
+                <div class="hidden md:flex justify-center items-center">
+                    <div class="w-full max-w-md transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                        <img
+                            src="/images/cvita-preview.svg"
+                            alt="Aperçu du CV créé avec CVita"
+                            class="w-full h-auto"
+                        />
                     </div>
                 </div>
             </div>
