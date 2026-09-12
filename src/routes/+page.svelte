@@ -243,111 +243,186 @@
 
         <MobileInstallSection />
 
-        <!-- 4. CARTES INTERACTIVES AVEC TILT 3D -->
+        <!-- 4. AVANTAGES -->
         <section id="features" class="max-w-6xl mx-auto px-4 py-20">
             <div class="text-center mb-12" use:reveal>
-                <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">Avantages</h2>
-                <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">Conçu pour maximiser vos entretiens</p>
+                <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">
+                    Avantages
+                </h2>
+
+                <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">
+                    Conçu pour maximiser vos entretiens
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                <div use:reveal={{ delay: 0 }}>
-                    <div 
-                        class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
-                        on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
-                        on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
-                    >
-                        <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+
+                <!-- CARTES -->
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 gap-6">
+
+                    <!-- Card 1 -->
+                    <div use:reveal={{ delay: 0 }}>
+                        <div
+                            class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
+                            on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
+                            on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
+                        >
+                            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
+                                <Icon icon="lucide:scan-search" class="w-6 h-6" />
+                            </div>
+
+                            <h3 class="text-base font-bold text-black uppercase tracking-tight">
+                                Analyse ATS Intégrée
+                            </h3>
+
+                            <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
+                                Évaluez instantanément la lisibilité de votre CV par les systèmes
+                                de recrutement grâce à notre score ATS.
+                            </p>
                         </div>
-                        <h3 class="text-base font-bold text-black uppercase tracking-tight">Analyse ATS Intégrée</h3>
-                        <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
-                            Évaluez instantanément la lisibilité de votre CV par les algorithmes de recrutement grâce à notre moteur de scoring.
-                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div use:reveal={{ delay: 100 }}>
+                        <div
+                            class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
+                            on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
+                            on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
+                        >
+                            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
+                                <Icon icon="lucide:eye" class="w-6 h-6" />
+                            </div>
+
+                            <h3 class="text-base font-bold text-black uppercase tracking-tight">
+                                Aperçu A4 Direct
+                            </h3>
+
+                            <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
+                                Visualisez instantanément le rendu de votre CV au format A4
+                                pendant que vous le créez.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div use:reveal={{ delay: 200 }}>
+                        <div
+                            class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
+                            on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
+                            on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
+                        >
+                            <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
+                                <Icon icon="lucide:file-down" class="w-6 h-6" />
+                            </div>
+
+                            <h3 class="text-base font-bold text-black uppercase tracking-tight">
+                                Export PDF & JSON
+                            </h3>
+
+                            <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
+                                Exportez votre CV en PDF prêt à l'emploi ou sauvegardez vos
+                                données en JSON pour les réutiliser plus tard.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ILLUSTRATION UNIQUE -->
+                <div
+                    class="hidden lg:flex justify-center items-center"
+                    use:reveal={{ delay: 250 }}
+                >
+                    <div class="w-full max-w-sm">
+                        <img
+                            src="/images/cvita-advantages.svg"
+                            alt="Illustration des avantages de CVita"
+                            class="w-full h-auto"
+                        />
                     </div>
                 </div>
 
-                <!-- Card 2 -->
-                <div use:reveal={{ delay: 100 }}>
-                    <div 
-                        class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
-                        on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
-                        on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
-                    >
-                        <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-black uppercase tracking-tight">Aperçu A4 Direct</h3>
-                        <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
-                            Visualisez instantanément le rendu exact de votre document au format A4 pendant que vous remplissez vos données.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div use:reveal={{ delay: 200 }}>
-                    <div 
-                        class="bg-white p-8 rounded-2xl border-2 border-neutral-200 shadow-sm transition-transform duration-200 ease-out cursor-pointer"
-                        on:mousemove={(e) => handleMouseMove(e, e.currentTarget)}
-                        on:mouseleave={(e) => handleMouseLeave(e.currentTarget)}
-                    >
-                        <div class="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-6 text-white">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
-                            </svg>
-                        </div>
-                        <h3 class="text-base font-bold text-black uppercase tracking-tight">Export PDF & JSON</h3>
-                        <p class="text-xs font-semibold text-neutral-500 mt-3 leading-relaxed">
-                            Téléchargez votre CV en PDF prêt à l'emploi ou sauvegardez le fichier JSON pour le recharger ultérieurement.
-                        </p>
-                    </div>
-                </div>
             </div>
         </section>
 
         <!-- 5. PROCESSUS À 3 ÉTAPES -->
         <section class="bg-white border-y-2 border-neutral-200 py-20">
             <div class="max-w-6xl mx-auto px-4">
+
                 <div class="text-center mb-16" use:reveal>
-                    <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">Processus</h2>
-                    <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">Comment ça marche ?</p>
+                    <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">
+                        Processus
+                    </h2>
+
+                    <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">
+                        Comment ça marche ?
+                    </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div use:reveal={{ delay: 0 }}>
-                        <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-neutral-200 hover:border-black transition-all">
-                            <span class="text-4xl font-black text-neutral-300 mb-4 block">01</span>
-                            <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">Saisissez vos données</h3>
-                            <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
-                                Remplissez vos informations personnelles, vos compétences et diplômes via des formulaires guidés.
-                            </p>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+
+                    <!-- Illustration GAUCHE -->
+                    <div
+                        class="hidden lg:flex justify-center items-center"
+                        use:reveal={{ delay: 100 }}
+                    >
+                        <div class="w-full max-w-sm">
+                            <img
+                                src="/images/cvita-process.svg"
+                                alt="Illustration du processus de création d'un CV avec CVita"
+                                class="w-full h-auto"
+                            />
                         </div>
                     </div>
 
-                    <div use:reveal={{ delay: 150 }}>
-                        <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-neutral-200 hover:border-black transition-all">
-                            <span class="text-4xl font-black text-neutral-300 mb-4 block">02</span>
-                            <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">Optimisez le Score ATS</h3>
-                            <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
-                                Suivez nos recommandations en temps réel pour corriger les mots-clés manquants.
-                            </p>
-                        </div>
-                    </div>
+                    <!-- Étapes DROITE -->
+                    <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-3 gap-8">
 
-                    <div use:reveal={{ delay: 300 }}>
-                        <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-black">
-                            <span class="text-4xl font-black text-black mb-4 block">03</span>
-                            <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">Exportez en 1-Clic</h3>
-                            <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
-                                Téléchargez votre document vectoriel au format PDF net, prêt à envoyer aux recruteurs.
-                            </p>
+                        <div use:reveal={{ delay: 0 }}>
+                            <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-neutral-200 hover:border-black transition-all">
+                                <span class="text-4xl font-black text-neutral-300 mb-4 block">01</span>
+
+                                <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">
+                                    Saisissez vos données
+                                </h3>
+
+                                <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
+                                    Remplissez vos informations personnelles, vos compétences
+                                    et diplômes via des formulaires guidés.
+                                </p>
+                            </div>
                         </div>
+
+                        <div use:reveal={{ delay: 150 }}>
+                            <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-neutral-200 hover:border-black transition-all">
+                                <span class="text-4xl font-black text-neutral-300 mb-4 block">02</span>
+
+                                <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">
+                                    Optimisez le Score ATS
+                                </h3>
+
+                                <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
+                                    Suivez les recommandations en temps réel pour améliorer
+                                    la structure et le contenu de votre CV.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div use:reveal={{ delay: 300 }}>
+                            <div class="bg-neutral-50 p-8 rounded-2xl border-2 border-black">
+                                <span class="text-4xl font-black text-black mb-4 block">03</span>
+
+                                <h3 class="text-base font-bold text-black uppercase tracking-tight mb-2">
+                                    Exportez en 1-Clic
+                                </h3>
+
+                                <p class="text-xs font-semibold text-neutral-500 leading-relaxed">
+                                    Téléchargez votre CV au format PDF et obtenez un document
+                                    prêt à envoyer.
+                                </p>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -360,83 +435,150 @@
                 <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">Pourquoi la structure importe</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Bad Practice -->
-                <div use:reveal={{ delay: 0 }}>
-                    <div class="bg-white p-8 rounded-2xl border-2 border-red-200 bg-red-50/20">
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-black">✕</span>
-                            <h3 class="text-base font-bold text-black uppercase tracking-tight">CV Graphique Complexe</h3>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+
+                <!-- Comparatif -->
+                <div class="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                    <!-- Bad Practice -->
+                    <div use:reveal={{ delay: 0 }}>
+                        <div class="bg-white p-8 rounded-2xl border-2 border-red-200 bg-red-50/20">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center font-black">
+                                    ✕
+                                </span>
+                                <h3 class="text-base font-bold text-black uppercase tracking-tight">
+                                    CV Graphique Complexe
+                                </h3>
+                            </div>
+
+                            <ul class="space-y-3 text-xs font-semibold text-neutral-600">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-500">•</span>
+                                    Colonnes multiples non lues par les logiciels
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-500">•</span>
+                                    Icônes et graphiques illisibles pour les ATS
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-red-500">•</span>
+                                    Risque de rejet automatique avant lecture humaine
+                                </li>
+                            </ul>
                         </div>
-                        <ul class="space-y-3 text-xs font-semibold text-neutral-600">
-                            <li class="flex items-start gap-2">
-                                <span class="text-red-500">•</span> Colonnes multiples non lues par les logiciels
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-red-500">•</span> Icônes et graphiques illisibles pour les ATS
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-red-500">•</span> Risque de rejet automatique avant lecture humaine
-                            </li>
-                        </ul>
                     </div>
+
+                    <!-- Good Practice -->
+                    <div use:reveal={{ delay: 150 }}>
+                        <div class="bg-white p-8 rounded-2xl border-2 border-black shadow-sm">
+                            <div class="flex items-center gap-3 mb-6">
+                                <span class="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center font-black">
+                                    ✓
+                                </span>
+                                <h3 class="text-base font-bold text-black uppercase tracking-tight">
+                                    CVita Standardized
+                                </h3>
+                            </div>
+
+                            <ul class="space-y-3 text-xs font-semibold text-neutral-600">
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    Hiérarchie claire et balisage sémantique
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    Typographie propre et polices standards universelles
+                                </li>
+                                <li class="flex items-start gap-2">
+                                    <span class="text-emerald-600 font-bold">•</span>
+                                    Structure optimisée pour les ATS
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- Good Practice -->
-                <div use:reveal={{ delay: 150 }}>
-                    <div class="bg-white p-8 rounded-2xl border-2 border-black shadow-sm">
-                        <div class="flex items-center gap-3 mb-6">
-                            <span class="w-8 h-8 rounded-lg bg-black text-white flex items-center justify-center font-black">✓</span>
-                            <h3 class="text-base font-bold text-black uppercase tracking-tight">CV CVBuilder Standardized</h3>
-                        </div>
-                        <ul class="space-y-3 text-xs font-semibold text-neutral-600">
-                            <li class="flex items-start gap-2">
-                                <span class="text-emerald-600 font-bold">•</span> Hiérarchie claire et balisage sémantique
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-emerald-600 font-bold">•</span> Typographie propre et polices standards universelles
-                            </li>
-                            <li class="flex items-start gap-2">
-                                <span class="text-emerald-600 font-bold">•</span> Taux d'acceptation maximal par les robots RH
-                            </li>
-                        </ul>
+                <!-- Illustration unique -->
+                <div
+                    class="hidden lg:flex justify-center items-center"
+                    use:reveal={{ delay: 200 }}
+                >
+                    <div class="w-full max-w-sm">
+                        <img
+                            src="/images/ats-illustration.svg"
+                            alt="Illustration d'un CV optimisé pour les ATS"
+                            class="w-full h-auto"
+                        />
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 6. FAQ ACCORDÉON (ANIMÉ) -->
-        <section class="bg-white border-t-2 border-neutral-200 py-20" use:reveal>
-            <div class="max-w-4xl mx-auto px-4">
-                <div class="text-center mb-12">
-                    <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">Questions Fréquentes</h2>
-                    <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">Foire Aux Questions</p>
-                </div>
+        <section class="bg-white border-t-2 border-neutral-200 py-20">
+            <div class="max-w-6xl mx-auto px-4">
 
-                <div class="space-y-4">
-                    {#each faqs as faq, i}
-                        <div class="border-2 border-neutral-200 rounded-2xl overflow-hidden bg-white transition-all">
-                            <button 
-                                type="button"
-                                class="w-full text-left p-6 flex justify-between items-center font-bold text-black text-sm uppercase tracking-tight focus:outline-none cursor-pointer"
-                                on:click={() => toggleFaq(i)}
-                            >
-                                <span>{faq.q}</span>
-                                <span class="text-lg font-black transition-transform duration-300 {openFaq === i ? 'rotate-180' : ''}">
-                                    ↓
-                                </span>
-                            </button>
-                            
-                            {#if openFaq === i}
-                                <div 
-                                    class="px-6 pb-6 text-xs font-semibold text-neutral-500 leading-relaxed border-t border-neutral-100 pt-4"
-                                    transition:slide
-                                >
-                                    {faq.a}
-                                </div>
-                            {/if}
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-10 items-center">
+
+                    <!-- Illustration GAUCHE -->
+                    <div
+                        class="hidden lg:flex justify-center items-center"
+                        use:reveal={{ delay: 100 }}
+                    >
+                        <div class="w-full max-w-sm">
+                            <img
+                                src="/images/cvita-faq.svg"
+                                alt="Illustration des questions fréquentes sur CVita"
+                                class="w-full h-auto"
+                            />
                         </div>
-                    {/each}
+                    </div>
+
+                    <!-- FAQ DROITE -->
+                    <div class="lg:col-span-2">
+
+                        <div class="mb-12" use:reveal>
+                            <h2 class="text-xs font-black text-neutral-500 uppercase tracking-widest mb-2">
+                                Questions Fréquentes
+                            </h2>
+
+                            <p class="text-2xl sm:text-4xl font-black text-black uppercase tracking-tight">
+                                Foire Aux Questions
+                            </p>
+                        </div>
+
+                        <div class="space-y-4">
+                            {#each faqs as faq, i}
+                                <div class="border-2 border-neutral-200 rounded-2xl overflow-hidden bg-white transition-all">
+
+                                    <button
+                                        type="button"
+                                        class="w-full text-left p-6 flex justify-between items-center font-bold text-black text-sm uppercase tracking-tight focus:outline-none cursor-pointer"
+                                        on:click={() => toggleFaq(i)}
+                                    >
+                                        <span>{faq.q}</span>
+
+                                        <span class="text-lg font-black transition-transform duration-300 {openFaq === i ? 'rotate-180' : ''}">
+                                            ↓
+                                        </span>
+                                    </button>
+
+                                    {#if openFaq === i}
+                                        <div
+                                            class="px-6 pb-6 text-xs font-semibold text-neutral-500 leading-relaxed border-t border-neutral-100 pt-4"
+                                            transition:slide
+                                        >
+                                            {faq.a}
+                                        </div>
+                                    {/if}
+
+                                </div>
+                            {/each}
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </section>
