@@ -38,14 +38,19 @@
         cvStore.update(s => ({ ...s, selectedTemplate: id }));
     }
 
-    function confirmSelection() {
+    async function confirmSelection() {
         if (isLoading) return;
         isLoading = true;
-
-        setTimeout(() => {
-            dispatch('selectTemplate', { templateId: $cvStore.selectedTemplate });
-            isLoading = false;
-        }, 300);
+        await new Promise(resolve => setTimeout(resolve, 300));
+        dispatch('selectTemplate', {
+            templateId: $cvStore.selectedTemplate
+        });
+        await tick();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        isLoading = false;
     }
 </script>
 

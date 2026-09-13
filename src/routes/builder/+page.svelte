@@ -1,5 +1,5 @@
 <script>
-    import { cvStore } from '$lib/stores/cvStore';
+    import { cvStore, resetCV } from '$lib/stores/cvStore';
     import PersonalInfo from '$lib/components/PersonalInfo.svelte';
     import ProfessionalSummary from '$lib/components/ProfessionalSummary.svelte';
     import SkillsSection from '$lib/components/SkillsSection.svelte';
@@ -13,11 +13,39 @@
     import A4Scaler from '$lib/components/A4Scaler.svelte';
     import Icon from '@iconify/svelte';
     import { page } from '$app/stores';
+    import { tick } from 'svelte';
     
     const siteUrl = $page.url.origin;
 
     let activeTab = 'templates';
     let headerExpanded = true;
+
+    let showResetModal = false;
+    let resetting = false;
+
+    function handleReset() {
+        showResetModal = true;
+    }
+
+    async function confirmReset() {
+        resetting = true;
+        await new Promise(resolve => setTimeout(resolve, 500));
+        resetCV();
+        await new Promise(resolve => setTimeout(resolve, 300));
+        resetting = false;
+        showResetModal = false;
+    }
+
+    async function changeTab(tab) {
+        activeTab = tab;
+
+        await tick();
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
 </script>
 
 <svelte:head>
@@ -141,7 +169,7 @@
                                     ? 'bg-black text-white' 
                                     : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                             }`}
-                            on:click={() => activeTab = 'edit'}
+                            on:click={() => changeTab('edit')}
                         >
                             <Icon icon="mdi:pencil" class="w-4 h-4" />
                             <span class="hidden sm:inline" class:inline={activeTab === 'edit'}>Éditeur</span>
@@ -156,7 +184,7 @@
                                         ? 'bg-black text-white' 
                                         : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                                 }`}
-                                on:click={() => activeTab = 'preview'}
+                                on:click={() => changeTab('preview')}
                             >
                                 <Icon icon="mdi:eye" class="w-4 h-4" />
                                 <span class="hidden sm:inline" class:inline={activeTab === 'preview'}>Aperçu A4</span>
@@ -172,7 +200,7 @@
                                         ? 'bg-black text-white' 
                                         : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                                 }`}
-                                on:click={() => activeTab = 'ats'}
+                                on:click={() => changeTab('ats')}
                             >
                                 <Icon icon="mdi:check-circle" class="w-4 h-4" />
                                 <span class="hidden sm:inline" class:inline={activeTab === 'ats'}>Analyse ATS</span>
@@ -191,13 +219,31 @@
             {#if activeTab === 'edit'}
                 <div class="flex flex-col lg:flex-row gap-8 items-start">
                     <!-- Colonne gauche : formulaires -->
-                    <div class="flex-1 min-w-0 space-y-6">
-                        <PersonalInfo />
-                        <ProfessionalSummary />
-                        <SkillsSection />
-                        <ExperienceSection />
-                        <EducationSection />
-                        <LanguagesSection />
+                    <div class="flex-1 min-w-0 w-full">
+
+                        <!-- Bouton de réinitialisation -->
+                        <div class="flex justify-start mb-4">
+                            <button
+                                type="button"
+                                on:click={handleReset}
+                                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-600 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all text-xs font-black uppercase tracking-wider"
+                                aria-label="Réinitialiser les champs du CV"
+                            >
+                                <Icon icon="mdi:refresh" class="w-4 h-4" />
+                                Réinitialiser les champs
+                            </button>
+                        </div>
+
+                        <!-- Champs du CV -->
+                        <div class="space-y-6">
+                            <PersonalInfo />
+                            <ProfessionalSummary />
+                            <SkillsSection />
+                            <ExperienceSection />
+                            <EducationSection />
+                            <LanguagesSection />
+                        </div>
+
                     </div>
 
                     <!-- Colonne droite : fixe (sticky) avec aperçu et analyse ATS + boutons -->
@@ -302,6 +348,80 @@
     {#if activeTab === 'edit' || activeTab === 'preview'}
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-neutral-200 p-3 flex justify-center gap-4 lg:hidden z-20">
             <ExportButtons />
+        </div>
+    {/if}
+
+    {#if showResetModal}
+        <div
+            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+            role="presentation"
+            on:click={(event) => {
+                if (event.target === event.currentTarget) {
+                    showResetModal = false;
+                }
+            }}
+        >
+            <div
+                class="w-full max-w-md rounded-2xl border-2 border-neutral-200 bg-white shadow-2xl overflow-hidden"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="reset-title"
+            >
+                <!-- Header -->
+                <div class="p-6 border-b-2 border-neutral-100">
+                    <div class="flex items-start gap-4">
+                        <div class="flex items-center justify-center w-11 h-11 rounded-xl bg-red-50 border-2 border-red-100 shrink-0">
+                            <Icon
+                                icon="mdi:alert-outline"
+                                class="w-6 h-6 text-red-600"
+                            />
+                        </div>
+
+                        <div class="min-w-0">
+                            <h3
+                                id="reset-title"
+                                class="text-lg font-black text-black uppercase tracking-tight"
+                            >
+                                Réinitialiser le CV ?
+                            </h3>
+
+                            <p class="mt-1.5 text-sm leading-relaxed text-neutral-500">
+                                Toutes les informations saisies dans votre CV seront supprimées.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center justify-end gap-3 p-5 bg-neutral-50">
+                    <button
+                        type="button"
+                        on:click={() => showResetModal = false}
+                        disabled={resetting}
+                        class="px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all text-xs font-black uppercase tracking-wider"
+                    >
+                        Annuler
+                    </button>
+
+                    <button
+                        type="button"
+                        on:click={confirmReset}
+                        disabled={resetting}
+                        class="inline-flex items-center justify-center gap-2 min-w-[145px] px-4 py-2.5 rounded-xl bg-black text-white hover:bg-red-600 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-all text-xs font-black uppercase tracking-wider"
+                    >
+                        {#if resetting}
+                            <Icon
+                                icon="mdi:loading"
+                                class="w-4 h-4 animate-spin"
+                            />
+                            Réinitialisation...
+                        {:else}
+                            <Icon icon="mdi:refresh" class="w-4 h-4" />
+                            Réinitialiser
+                        {/if}
+                    </button>
+                </div>
+            </div>
         </div>
     {/if}
 </div>

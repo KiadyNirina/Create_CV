@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const cvStore = writable({
+const initialCV = {
     personalInfo: {
         cvTitle: '',
         name: '',
@@ -18,7 +18,30 @@ export const cvStore = writable({
     certifications: [],
     projects: [],
     selectedTemplate: 'classic'
-});
+};
+
+export const cvStore = writable(initialCV);
+
+/**
+ * Réinitialise complètement le CV
+ */
+export const resetCV = () => {
+    cvStore.set({
+        ...initialCV,
+
+        personalInfo: {
+            ...initialCV.personalInfo,
+            socials: []
+        },
+
+        workExperience: [],
+        education: [],
+        skills: [],
+        languages: [],
+        certifications: [],
+        projects: []
+    });
+};
 
 export const addWorkExperience = () => {
     cvStore.update(current => {
