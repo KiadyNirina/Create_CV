@@ -19,16 +19,15 @@
     let activeTab = 'templates';
     let headerExpanded = true;
 
+    let showResetModal = false;
+
     function handleReset() {
-        const confirmed = confirm(
-            'Voulez-vous vraiment réinitialiser votre CV ? Toutes les informations saisies seront supprimées.'
-        );
+        showResetModal = true;
+    }
 
-        if (!confirmed) return;
-
+    function confirmReset() {
         resetCV();
-
-        activeTab = 'edit';
+        showResetModal = false;
     }
 </script>
 
@@ -332,6 +331,70 @@
     {#if activeTab === 'edit' || activeTab === 'preview'}
         <div class="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-neutral-200 p-3 flex justify-center gap-4 lg:hidden z-20">
             <ExportButtons />
+        </div>
+    {/if}
+
+    {#if showResetModal}
+        <div
+            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm"
+            role="presentation"
+            on:click={(event) => {
+                if (event.target === event.currentTarget) {
+                    showResetModal = false;
+                }
+            }}
+        >
+            <div
+                class="w-full max-w-md rounded-2xl border-2 border-neutral-200 bg-white shadow-2xl overflow-hidden"
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="reset-title"
+            >
+                <!-- Header -->
+                <div class="p-6 border-b-2 border-neutral-100">
+                    <div class="flex items-start gap-4">
+                        <div class="flex items-center justify-center w-11 h-11 rounded-xl bg-red-50 border-2 border-red-100 shrink-0">
+                            <Icon
+                                icon="mdi:alert-outline"
+                                class="w-6 h-6 text-red-600"
+                            />
+                        </div>
+
+                        <div class="min-w-0">
+                            <h3
+                                id="reset-title"
+                                class="text-lg font-black text-black uppercase tracking-tight"
+                            >
+                                Réinitialiser le CV ?
+                            </h3>
+
+                            <p class="mt-1.5 text-sm leading-relaxed text-neutral-500">
+                                Toutes les informations saisies dans votre CV seront supprimées.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions -->
+                <div class="flex items-center justify-end gap-3 p-5 bg-neutral-50">
+                    <button
+                        type="button"
+                        on:click={() => showResetModal = false}
+                        class="px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black transition-all text-xs font-black uppercase tracking-wider"
+                    >
+                        Annuler
+                    </button>
+
+                    <button
+                        type="button"
+                        on:click={confirmReset}
+                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-black text-white hover:bg-red-600 transition-all text-xs font-black uppercase tracking-wider"
+                    >
+                        <Icon icon="mdi:refresh" class="w-4 h-4" />
+                        Réinitialiser
+                    </button>
+                </div>
+            </div>
         </div>
     {/if}
 </div>
