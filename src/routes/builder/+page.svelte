@@ -1,5 +1,5 @@
 <script>
-    import { cvStore } from '$lib/stores/cvStore';
+    import { cvStore, resetCV } from '$lib/stores/cvStore';
     import PersonalInfo from '$lib/components/PersonalInfo.svelte';
     import ProfessionalSummary from '$lib/components/ProfessionalSummary.svelte';
     import SkillsSection from '$lib/components/SkillsSection.svelte';
@@ -18,6 +18,18 @@
 
     let activeTab = 'templates';
     let headerExpanded = true;
+
+    function handleReset() {
+        const confirmed = confirm(
+            'Voulez-vous vraiment réinitialiser votre CV ? Toutes les informations saisies seront supprimées.'
+        );
+
+        if (!confirmed) return;
+
+        resetCV();
+
+        activeTab = 'edit';
+    }
 </script>
 
 <svelte:head>
@@ -191,13 +203,31 @@
             {#if activeTab === 'edit'}
                 <div class="flex flex-col lg:flex-row gap-8 items-start">
                     <!-- Colonne gauche : formulaires -->
-                    <div class="flex-1 min-w-0 space-y-6">
-                        <PersonalInfo />
-                        <ProfessionalSummary />
-                        <SkillsSection />
-                        <ExperienceSection />
-                        <EducationSection />
-                        <LanguagesSection />
+                    <div class="flex-1 min-w-0 w-full">
+
+                        <!-- Bouton de réinitialisation -->
+                        <div class="flex justify-start mb-4">
+                            <button
+                                type="button"
+                                on:click={handleReset}
+                                class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-600 hover:bg-red-50 hover:border-red-200 hover:text-red-600 transition-all text-xs font-black uppercase tracking-wider"
+                                aria-label="Réinitialiser les champs du CV"
+                            >
+                                <Icon icon="mdi:refresh" class="w-4 h-4" />
+                                Réinitialiser les champs
+                            </button>
+                        </div>
+
+                        <!-- Champs du CV -->
+                        <div class="space-y-6">
+                            <PersonalInfo />
+                            <ProfessionalSummary />
+                            <SkillsSection />
+                            <ExperienceSection />
+                            <EducationSection />
+                            <LanguagesSection />
+                        </div>
+
                     </div>
 
                     <!-- Colonne droite : fixe (sticky) avec aperçu et analyse ATS + boutons -->
