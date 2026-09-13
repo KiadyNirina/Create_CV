@@ -20,13 +20,18 @@
     let headerExpanded = true;
 
     let showResetModal = false;
+    let resetting = false;
 
     function handleReset() {
         showResetModal = true;
     }
 
-    function confirmReset() {
+    async function confirmReset() {
+        resetting = true;
+        await new Promise(resolve => setTimeout(resolve, 500));
         resetCV();
+        await new Promise(resolve => setTimeout(resolve, 300));
+        resetting = false;
         showResetModal = false;
     }
 </script>
@@ -380,7 +385,8 @@
                     <button
                         type="button"
                         on:click={() => showResetModal = false}
-                        class="px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black transition-all text-xs font-black uppercase tracking-wider"
+                        disabled={resetting}
+                        class="px-4 py-2.5 rounded-xl border-2 border-neutral-200 bg-white text-neutral-700 hover:bg-neutral-100 hover:text-black disabled:opacity-50 disabled:cursor-not-allowed transition-all text-xs font-black uppercase tracking-wider"
                     >
                         Annuler
                     </button>
@@ -388,10 +394,19 @@
                     <button
                         type="button"
                         on:click={confirmReset}
-                        class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-black text-white hover:bg-red-600 transition-all text-xs font-black uppercase tracking-wider"
+                        disabled={resetting}
+                        class="inline-flex items-center justify-center gap-2 min-w-[145px] px-4 py-2.5 rounded-xl bg-black text-white hover:bg-red-600 disabled:bg-neutral-400 disabled:cursor-not-allowed transition-all text-xs font-black uppercase tracking-wider"
                     >
-                        <Icon icon="mdi:refresh" class="w-4 h-4" />
-                        Réinitialiser
+                        {#if resetting}
+                            <Icon
+                                icon="mdi:loading"
+                                class="w-4 h-4 animate-spin"
+                            />
+                            Réinitialisation...
+                        {:else}
+                            <Icon icon="mdi:refresh" class="w-4 h-4" />
+                            Réinitialiser
+                        {/if}
                     </button>
                 </div>
             </div>
