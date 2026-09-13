@@ -13,6 +13,7 @@
     import A4Scaler from '$lib/components/A4Scaler.svelte';
     import Icon from '@iconify/svelte';
     import { page } from '$app/stores';
+    import { tick } from 'svelte';
     
     const siteUrl = $page.url.origin;
 
@@ -33,6 +34,17 @@
         await new Promise(resolve => setTimeout(resolve, 300));
         resetting = false;
         showResetModal = false;
+    }
+
+    async function changeTab(tab) {
+        activeTab = tab;
+
+        await tick();
+
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     }
 </script>
 
@@ -157,7 +169,7 @@
                                     ? 'bg-black text-white' 
                                     : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                             }`}
-                            on:click={() => activeTab = 'edit'}
+                            on:click={() => changeTab('edit')}
                         >
                             <Icon icon="mdi:pencil" class="w-4 h-4" />
                             <span class="hidden sm:inline" class:inline={activeTab === 'edit'}>Éditeur</span>
@@ -172,7 +184,7 @@
                                         ? 'bg-black text-white' 
                                         : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                                 }`}
-                                on:click={() => activeTab = 'preview'}
+                                on:click={() => changeTab('preview')}
                             >
                                 <Icon icon="mdi:eye" class="w-4 h-4" />
                                 <span class="hidden sm:inline" class:inline={activeTab === 'preview'}>Aperçu A4</span>
@@ -188,7 +200,7 @@
                                         ? 'bg-black text-white' 
                                         : 'bg-white text-neutral-600 hover:text-black hover:bg-neutral-200/60 border-2 border-b-0 border-neutral-200'
                                 }`}
-                                on:click={() => activeTab = 'ats'}
+                                on:click={() => changeTab('ats')}
                             >
                                 <Icon icon="mdi:check-circle" class="w-4 h-4" />
                                 <span class="hidden sm:inline" class:inline={activeTab === 'ats'}>Analyse ATS</span>
